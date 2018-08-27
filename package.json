@@ -1,0 +1,19 @@
+{
+  "name": "chatter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dat-swarm-defaults": "^1.0.1",
+    "discovery-swarm": "^5.1.2",
+    "get-port": "^4.0.0",
+    "nodemon": "^1.18.3",
+    "portfinder": "^1.0.17"
+  }
+}
