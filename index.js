@@ -1,73 +1,17 @@
-const crypto = require('crypto');
+
 const Swarm = require('discovery-swarm');
-const defaults = require('dat-swarm-defaults');
 const getPort = require('get-port');
-const readline = require('readline');
 
-/**
- * Here we will save our TCP peer connections
- * using the peer id as key: { peer_id: TCP_Connection }
- */
-const peers = {};
-// Counter for connections, used for identify connections
-let connSeq = 0;
-
-// Peer Identity, a random hash for identify your peer
-const myId = crypto.randomBytes(32);
-console.log('Your identity: ' + myId.toString('hex'));
-
-// reference to redline interface
-let rl;
-/**
- * Function for safely call console.log with readline interface active
- */
-function log() {
-  if (rl) {
-    rl.clearLine();
-    rl.close();
-    rl = undefined;
-  }
-  for (let i = 0, len = arguments.length; i < len; i++) {
-    console.log(arguments[i]);
-  }
-  askUser();
-}
-
-/*
-* Function to get text input from user and send it to other peers
-* Like a chat :)
-*/
-const askUser = async () => {
-  rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  rl.question('Send message: ', message => {
-    // Broadcast to peers
-    for (let id in peers) {
-      peers[id].conn.write(message);
-    }
-    rl.close();
-    rl = undefined;
-    askUser();
-  });
-};
-
-/**
- * Default DNS and DHT servers
- * This servers are used for peer discovery and establishing connection
- */
-const config = defaults({
-  // peer-id
-  id: myId
-});
+const askUser = require('./ui');
+const { peers, connSeq, myId, config } = require('./config');
 
 /**
  * discovery-swarm library establishes a TCP p2p connection and uses
  * discovery-channel library for peer discovery
  */
+
 const sw = Swarm(config);
+
 (async () => {
   // Choose a random unused port for listening TCP peer connections
   const port = await getPort();
