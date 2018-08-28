@@ -39,4 +39,4 @@ const askUser = async () => {
   });
 };
 
-module.exports = askUser;
+module.exports = {askUser, log};

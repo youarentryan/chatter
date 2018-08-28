@@ -2,7 +2,7 @@
 const Swarm = require('discovery-swarm');
 const getPort = require('get-port');
 
-const askUser = require('./ui');
+const {askUser, log} = require('./ui');
 const { peers, connSeq, myId, config } = require('./config');
 
 /**
