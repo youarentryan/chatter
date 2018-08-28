@@ -6,8 +6,7 @@ const defaults = require('dat-swarm-defaults');
  * using the peer id as key: { peer_id: TCP_Connection }
  */
 const peers = {};
-// Counter for connections, used for identify connections
-let connSeq = 0;
+
 
 // Peer Identity, a random hash for identify your peer
 const myId = crypto.randomBytes(32);
@@ -22,4 +21,4 @@ const config = defaults({
   id: myId
 });
 
-module.exports = { peers, connSeq, myId, config }
+module.exports = { peers, myId, config }

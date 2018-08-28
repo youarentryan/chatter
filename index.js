@@ -3,7 +3,10 @@ const Swarm = require('discovery-swarm');
 const getPort = require('get-port');
 
 const {askUser, log} = require('./ui');
-const { peers, connSeq, myId, config } = require('./config');
+const { peers, myId, config } = require('./config');
+
+// Counter for connections, used for identify connections
+let connSeq = 0;
 
 /**
  * discovery-swarm library establishes a TCP p2p connection and uses
